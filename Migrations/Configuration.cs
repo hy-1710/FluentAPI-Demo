@@ -1,6 +1,8 @@
 namespace DataAnnotattion.Migrations
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -18,6 +20,181 @@ namespace DataAnnotattion.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+            #region Add Tags
+            var tags = new Dictionary<string, Tag>
+            {
+                {"c#", new Tag {Id = 1, Name = "c#"}},
+                {"angularjs", new Tag {Id = 2, Name = "angularjs"}},
+                {"javascript", new Tag {Id = 3, Name = "javascript"}},
+                {"nodejs", new Tag {Id = 4, Name = "nodejs"}},
+                {"oop", new Tag {Id = 5, Name = "oop"}},
+                {"linq", new Tag {Id = 6, Name = "linq"}},
+            };
+
+            foreach (var tag in tags.Values)
+                context.Tags.AddOrUpdate(t => t.Id, tag);
+            #endregion
+
+            #region Add Authors
+            var authors = new List<Author>
+            {
+                new Author
+                {
+                    Id = 1,
+                    Name = "Mosh Hamedani"
+                },
+                new Author
+                {
+                    Id = 2,
+                    Name = "Anthony Alicea"
+                },
+                new Author
+                {
+                    Id = 3,
+                    Name = "Eric Wise"
+                },
+                new Author
+                {
+                    Id = 4,
+                    Name = "Tom Owsiak"
+                },
+                new Author
+                {
+                    Id = 5,
+                    Name = "John Smith"
+                }
+            };
+
+            foreach (var author in authors)
+                context.Authors.AddOrUpdate(a => a.Id, author);
+            #endregion
+
+            #region Add Courses
+            var courses = new List<Course>
+            {
+                new Course
+                {
+                    Id = 1,
+                    Name = "C# Basics",
+                    authorId = 1,
+                    FullPrice = 49,
+                    description = "description for C# Basics",
+                    Level = 1,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["c#"]
+                    }
+                },
+                new Course
+                {
+                    Id = 2,
+                    Name = "C# Intermediate",
+                    authorId = 1,
+                    FullPrice = 49,
+                    description = "description for C# Intermediate",
+                    Level = 2,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["c#"],
+                        tags["oop"]
+                    }
+                },
+                new Course
+                {
+                    Id = 3,
+                    Name = "C# Advanced",
+                    authorId = 1,
+                    FullPrice = 69,
+                    description = "description for C# Advanced",
+                    Level = 3,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["c#"]
+                    }
+                },
+                new Course
+                {
+                    Id = 4,
+                    Name = "Javascript: Understanding the Weird Parts",
+                    authorId = 2,
+                    FullPrice = 149,
+                    description = "description for Javascript",
+                    Level = 2,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["javascript"]
+                    }
+                },
+                new Course
+                {
+                    Id = 5,
+                    Name = "Learn and Understand AngularJS",
+                    authorId = 2,
+                    FullPrice = 99,
+                    description = "description for AngularJS",
+                    Level = 2,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["angularjs"]
+                    }
+                },
+                new Course
+                {
+                    Id = 6,
+                    Name = "Learn and Understand NodeJS",
+                    authorId = 2,
+                    FullPrice = 149,
+                    description = "description for NodeJS",
+                    Level = 2,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["nodejs"]
+                    }
+                },
+                new Course
+                {
+                    Id = 7,
+                    Name = "Programming for Complete Beginners",
+                    authorId = 3,
+                    FullPrice = 45,
+                    description = "description for Programming for Beginners",
+                    Level = 1,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["c#"]
+                    }
+                },
+                new Course
+                {
+                    Id = 8,
+                    Name = "A 16 Hour C# Course with Visual Studio 2013",
+                    authorId = 4,
+                    FullPrice = 150,
+                    description = "description 16 Hour Course",
+                    Level = 1,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["c#"]
+                    }
+                },
+                new Course
+                {
+                    Id = 9,
+                    Name = "Learn JavaScript Through Visual Studio 2013",
+                    authorId = 4,
+                    FullPrice = 20,
+                    description = "description Learn Javascript",
+                    Level = 1,
+                    Tags = new Collection<Tag>()
+                    {
+                        tags["javascript"]
+                    }
+                }
+            };
+
+            foreach (var course in courses)
+                context.Courses.AddOrUpdate(c => c.Id, course);
+            #endregion
         }
     }
 }
